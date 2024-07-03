@@ -6,7 +6,7 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	minitiaapp "github.com/initia-labs/minimove/app"
+	minitiaapp "github.com/init-place/iplace/app"
 )
 
 func main() {

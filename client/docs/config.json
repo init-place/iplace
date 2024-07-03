@@ -187,6 +187,9 @@
           "Params": "MarketMapParams"
         }
       }
+    },
+    {
+      "url": "./tmp-swagger-gen/iplace/board/v1/query.swagger.json"
     }
   ]
 }

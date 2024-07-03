@@ -37,8 +37,8 @@ import (
 	movecmd "github.com/initia-labs/initia/cmd/move"
 	moveconfig "github.com/initia-labs/initia/x/move/config"
 
+	minitiaapp "github.com/init-place/iplace/app"
 	"github.com/initia-labs/initia/app/params"
-	minitiaapp "github.com/initia-labs/minimove/app"
 
 	opchildcli "github.com/initia-labs/OPinit/x/opchild/client/cli"
 )

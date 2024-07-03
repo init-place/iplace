@@ -1,7 +1,7 @@
 # Maintaining Initia Proto Files
 
-All of the Initia proto files are defined here. This folder should
-be synced regularly with buf.build/initia-labs/initia regularly by
+All of the init.place proto files are defined here. This folder should
+be synced regularly with buf.build/init-place/iplace regularly by
 a maintainer by running `buf push` in this folder.
 
 User facing documentation should not be placed here but instead goes in
@@ -10,8 +10,8 @@ User facing documentation should not be placed here but instead goes in
 
 ## Generate
 
-To get the Initia proto given a commit, run:
+To get the init.place proto given a commit, run:
 
 ```bash
-buf export buf.build/initia-labs/initia:${commit} --output .
+buf export buf.build/init-place/iplace:${commit} --output .
 ```

@@ -1,6 +1,6 @@
-# This module represents buf.build/initia-labs/initia
+# This module represents buf.build/init-place/iplace
 version: v1
-name: buf.build/initia-labs/initia
+name: buf.build/init-place/iplace
 deps:
   - buf.build/cosmos/cosmos-sdk
   - buf.build/cosmos/cosmos-proto

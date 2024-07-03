@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"github.com/init-place/iplace/x/board"
 	"io"
 	"net/http"
 	"os"
@@ -141,9 +142,9 @@ import (
 	oraclekeeper "github.com/skip-mev/slinky/x/oracle/keeper"
 	oracletypes "github.com/skip-mev/slinky/x/oracle/types"
 
-	appante "github.com/initia-labs/minimove/app/ante"
-	apphook "github.com/initia-labs/minimove/app/hook"
-	appkeepers "github.com/initia-labs/minimove/app/keepers"
+	appante "github.com/init-place/iplace/app/ante"
+	apphook "github.com/init-place/iplace/app/hook"
+	appkeepers "github.com/init-place/iplace/app/keepers"
 
 	// noble forwarding keeper
 	forwarding "github.com/noble-assets/forwarding/x/forwarding"
@@ -161,7 +162,11 @@ import (
 	indexerkeeper "github.com/initia-labs/kvindexer/x/kvindexer/keeper"
 
 	// unnamed import of statik for swagger UI support
-	_ "github.com/initia-labs/minimove/client/docs/statik"
+	_ "github.com/init-place/iplace/client/docs/statik"
+
+	_ "github.com/init-place/iplace/x/board"
+	boardkeeper "github.com/init-place/iplace/x/board/keeper"
+	boardtypes "github.com/init-place/iplace/x/board/types"
 )
 
 var (
@@ -241,6 +246,7 @@ type MinitiaApp struct {
 	OracleKeeper          *oraclekeeper.Keeper // x/oracle keeper used for the slinky oracle
 	MarketMapKeeper       *marketmapkeeper.Keeper
 	ForwardingKeeper      *forwardingkeeper.Keeper
+	BoardKeeper           *boardkeeper.Keeper
 
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper           capabilitykeeper.ScopedKeeper
@@ -298,6 +304,7 @@ func NewMinitiaApp(
 		icaauthtypes.StoreKey, ibcfeetypes.StoreKey, movetypes.StoreKey, opchildtypes.StoreKey,
 		auctiontypes.StoreKey, packetforwardtypes.StoreKey, oracletypes.StoreKey,
 		ibchookstypes.StoreKey, forwardingtypes.StoreKey, marketmaptypes.StoreKey,
+		boardtypes.StoreKey,
 	)
 	tkeys := storetypes.NewTransientStoreKeys(forwardingtypes.TransientStoreKey)
 	memKeys := storetypes.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -719,6 +726,14 @@ func NewMinitiaApp(
 	)
 	app.AuctionKeeper = &auctionKeeper
 
+	boardKeeper := boardkeeper.NewKeeper(
+		appCodec,
+		ac,
+		runtime.NewKVStoreService(keys[boardtypes.StoreKey]),
+		authorityAddr,
+	)
+	app.BoardKeeper = &boardKeeper
+
 	/****  Module Options ****/
 
 	// NOTE: we may consider parsing `appOpts` inside module constructors. For the moment
@@ -757,6 +772,7 @@ func NewMinitiaApp(
 		// slinky modules
 		oracle.NewAppModule(appCodec, *app.OracleKeeper),
 		marketmap.NewAppModule(appCodec, app.MarketMapKeeper),
+		board.NewAppModule(appCodec, *app.BoardKeeper),
 	)
 
 	if err := app.setupIndexer(appOpts, homePath, ac, vc, appCodec); err != nil {
@@ -816,6 +832,7 @@ func NewMinitiaApp(
 		ibctransfertypes.ModuleName, ibcnfttransfertypes.ModuleName, icatypes.ModuleName, icaauthtypes.ModuleName,
 		ibcfeetypes.ModuleName, consensusparamtypes.ModuleName, auctiontypes.ModuleName, oracletypes.ModuleName,
 		marketmaptypes.ModuleName, packetforwardtypes.ModuleName, ibchookstypes.ModuleName, forwardingtypes.ModuleName,
+		boardtypes.ModuleName,
 	}
 
 	app.ModuleManager.SetOrderInitGenesis(genesisModuleOrder...)

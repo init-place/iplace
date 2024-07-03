@@ -7,10 +7,10 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/types/module"
 
+	minitiaapp "github.com/init-place/iplace/app"
 	"github.com/initia-labs/OPinit/contrib/launchtools"
 	"github.com/initia-labs/OPinit/contrib/launchtools/steps"
 	"github.com/initia-labs/initia/app/params"
-	minitiaapp "github.com/initia-labs/minimove/app"
 )
 
 // DefaultLaunchStepFactories is a list of default launch step factories.

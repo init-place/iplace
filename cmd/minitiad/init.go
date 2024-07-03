@@ -26,8 +26,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	"github.com/cosmos/cosmos-sdk/x/genutil/types"
 
-	minitiaapp "github.com/initia-labs/minimove/app"
-	minitiatypes "github.com/initia-labs/minimove/types"
+	minitiaapp "github.com/init-place/iplace/app"
+	minitiatypes "github.com/init-place/iplace/types"
 )
 
 const (

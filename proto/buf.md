@@ -1,3 +1,3 @@
 # Protobufs
 
-This is the public protocol buffers API for the [Initia](https://github.com/initia-labs/initia).
+This is the public protocol buffers API for the [init.place](https://github.com/init-place/iplace).

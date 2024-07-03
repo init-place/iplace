@@ -50,3 +50,5 @@ dependency-graph.png
 *.aux
 *.out
 *.synctex.gz
+
+/iplace.minitia.json

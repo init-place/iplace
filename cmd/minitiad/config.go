@@ -7,9 +7,9 @@ import (
 	tmcfg "github.com/cometbft/cometbft/config"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 
+	"github.com/init-place/iplace/types"
 	moveconfig "github.com/initia-labs/initia/x/move/config"
 	indexerconfig "github.com/initia-labs/kvindexer/config"
-	"github.com/initia-labs/minimove/types"
 )
 
 // initiaappConfig initia specify app config

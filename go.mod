@@ -1,4 +1,4 @@
-module github.com/initia-labs/minimove
+module github.com/init-place/iplace
 
 go 1.22
 

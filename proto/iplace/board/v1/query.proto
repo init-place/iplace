@@ -1,0 +1,90 @@
+syntax = "proto3";
+package iplace.board.v1;
+
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "iplace/board/v1/board.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+
+option go_package = "github.com/init-place/iplace/x/board/types";
+
+service Query {
+  rpc GetAllBoards(QueryGetAllBoardsRequest) returns (QueryGetAllBoardsResponse) {
+    option (google.api.http).get = "/iplace/board";
+  }
+  rpc GetBoard(QueryGetBoardRequest) returns (QueryGetBoardResponse) {
+    option (google.api.http).get = "/iplace/board/{id}";
+  }
+//  rpc GetAllSlices(QueryGetAllSlicesRequest) returns (QueryGetAllSlicesResponse) {
+//    option (google.api.http).get = "/iplace/board/{board_id}/slice";
+//  }
+//  rpc GetSlice(QueryGetSliceRequest) returns (QueryGetSliceResponse) {
+//    option (google.api.http).get = "/iplace/board/{board_id}/slice/{slice_id}";
+//  }
+  rpc GetPixelInfo(QueryGetPixelInfoRequest) returns (QueryGetPixelInfoResponse) {
+    option (google.api.http).get = "/iplace/board/{board_id}/pixel_info/{pixel_index}";
+  }
+  rpc GetPixels(QueryGetPixelsRequest) returns (QueryGetPixelsResponse) {
+    option (google.api.http).get = "/iplace/board/{board_id}/pixel";
+  }
+}
+
+message QueryGetAllBoardsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryGetAllBoardsResponse {
+  repeated Board boards = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetBoardRequest {
+  uint32 id = 1;
+}
+
+message QueryGetBoardResponse {
+  Board board = 1;
+}
+
+//message QueryGetAllSlicesRequest {
+//  uint32 board_id = 1;
+//  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+//}
+
+//message QueryGetAllSlicesResponse {
+//  repeated BoardSlice slices = 1 [ (gogoproto.nullable) = false ];
+//  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+//}
+
+//message QueryGetSliceRequest {
+//  uint32 board_id = 1;
+//  uint32 slice_id = 2;
+//}
+//
+//message QueryGetSliceResponse {
+//  BoardSlice slice = 1;
+//}
+
+message QueryGetPixelInfoRequest {
+  uint32 board_id = 1;
+//  uint32 slice_id = 2;
+  uint32 pixel_index = 3;
+}
+
+message QueryGetPixelInfoResponse {
+  PixelInfo pixel = 1;
+}
+
+message QueryGetPixelsRequest {
+  uint32 board_id = 1;
+  //  uint32 slice_id = 2;
+  uint32 start = 3;
+  uint32 end = 4;
+}
+
+message QueryGetPixelsResponse {
+  bytes pixels = 1;
+}
